@@ -18,6 +18,12 @@ function! cmdbundle#load()
 
   if s:enabled('unimpared')
   endif
+  if s:enabled('debug')
+    call cmd#define('Debug: Reload .vimrc', ":source $MYVIMRC<CR>")
+    call cmd#define('Debug: Syntax highlight', ':echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . "> trans<" . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>')
+    call cmd#define('Debug: Start profiling into profile.log', ':profile start profile.log<CR>:profile func *<CR>:profile file *<CR>')
+    call cmd#define('Debug: Stop profiling', ':profile pause<CR>:noautocmd qall!')
+  endif
 endfunction
 
 function s:showGitLog()
